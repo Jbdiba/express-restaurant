@@ -6,6 +6,7 @@ const {Restaurant} = require('./models/Restaurant')
 const {Item} = require('./models/Item')
 const {Orders} = require('./models/Orders')
 const {Customer} = require('./models/Customer')
+const {Payment} = require('./models/Payment')
 
 Menu.belongsTo(Restaurant)
 Restaurant.hasMany(Menu)
@@ -16,9 +17,11 @@ Menu.hasMany(Item)
 Orders.belongsTo(Customer)
 Customer.hasMany(Orders)
 
-Customer.belongsTo(Restaurant)
-Restaurant.hasMany(Customer)
+Customer.belongsTo(Payment)
+Payment.hasMany(Customer)
+
+Payment.belongsTo(Restaurant)
+Restaurant.hasMany(Payment)
 
 
-
-module.exports = {Menu, Restaurant, Item, Orders, Customer, sequelize}
+module.exports = {Menu, Restaurant, Item, Orders, Customer,Payment, sequelize}

@@ -5,6 +5,7 @@ const { Menu } = require('./models/Menu')
 const { Item } = require('./models/Item')
 const { Orders } = require('./models/Orders')
 const { Customer } = require('./models/Customer')
+const { Payment } = require('./models/Payment')
 
 const app = express()
 const port = 3000
@@ -61,6 +62,14 @@ app.get('/Customer', async (req,res) => {
     const allCustomers = await Customer.findAll()
     //respond with allCustomers as a json objeect
     res.json(allCustomers)
+})
+
+//GET method on /Cusatomer route returns all customers
+app.get('/Payment', async (req,res) => {
+    //find all instances of the Model Customer
+    const allPayments = await Payment.findAll()
+    //respond with allCustomers as a json objeect
+    res.json(allPayments)
 })
 
 //return one order by id

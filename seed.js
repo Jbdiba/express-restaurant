@@ -1,5 +1,5 @@
 const {sequelize} = require('./db')
-const {Restaurant, Menu, Item, Orders, Customer} = require('./index') //Q: WHY import these models from index vs. from each separate model file?
+const {Restaurant, Menu, Item, Orders, Customer, Payment} = require('./index') //Q: WHY import these models from index vs. from each separate model file?
 // const {Restaurant} = require('./models/Restaurant')
 // const { Menu } = require('./models/Menu')
 // const { Item } = require('./models/Item')
@@ -9,35 +9,30 @@ const {Restaurant, Menu, Item, Orders, Customer} = require('./index') //Q: WHY i
 //Q: Why do you think each object inside of the arrays are structured the way that they are?
 //Q: What do you think will happen when we 'seed' this file?
 const seedRestaurant = [
-  {
+  { 
     name: 'AppleBees',
     location: 'Texas',
-    cuisine: 'FastFood',
-    CustomerId: 1
+    cuisine: 'FastFood'
   },
   {
     name: 'LittleSheep',
     location: 'Dallas',
-    cuisine: 'Hotpot',
-    CustomerId: 2
+    cuisine: 'Hotpot' 
   },
   {
     name: 'Spice Grill',
     location: 'Houston',
-    cuisine: 'Indian',
-    CustomerId: 3
+    cuisine: 'Indian'
   },
   {
     name: 'burgetking',
     location: 'Dallas',
-    cuisine: 'Hotpot',
-    CustomerId: 4
+    cuisine: 'Hotpot'
   },
   {
     name: 'MCDS',
     location: 'Dallas',
-    cuisine: 'Hotpot',
-    CustomerId: 1
+    cuisine: 'Hotpot'
   },
 ]
 
@@ -99,21 +94,36 @@ const seedOrders = [
 ]
 
 const seedCustomer = [
-  {
+  { PaymentId: 1,
     customerName: 'John',
-    paymentType: 'debit-card',
-    RestaurantId: 1,
+    paymentType: 'debit-card'
+  },
+  { PaymentId: 2,
+    customerName: 'Michael',
+    paymentType: 'debit-card'
+  },
+  { PaymentId: 3,
+    customerName: 'Jessica',
+    paymentType: 'cash'
+  }
+]
+
+const seedPayment = [
+  {
+    PaymentType: 'Card',
+    CustomerId : 1,
+    RestaurantId: 1
   },
   {
-    customerName: 'Michael',
-    paymentType: 'debit-card',
+    PaymentType: 'Card',
+    CustomerId : 2,
     RestaurantId: 2
   },
   {
-    customerName: 'Jessica',
-    paymentType: 'cash',
+    PaymentType: 'Cash',
+    CustomerId : 3,
     RestaurantId: 3
-  }
+  },
 ]
 
 //Q: Try to decifer the following function.
@@ -124,8 +134,10 @@ const seed = async () => {
     await Restaurant.bulkCreate(seedRestaurant, {validate: true})
     await Menu.bulkCreate(seedMenu, {validate: true})
     await Item.bulkCreate(seedItem, {validate: true})
+    await Payment.bulkCreate(seedPayment, {validate: true})
     await Customer.bulkCreate(seedCustomer, {validate: true})
     await Orders.bulkCreate(seedOrders, {validate: true})
+    
     console.log('Seeding success!')
     sequelize.close()
   } catch (error) {
