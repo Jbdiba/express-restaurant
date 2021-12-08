@@ -1,20 +1,17 @@
-const {sequelize, DataTypes, Model} = require('./db')
+const {sequelize} = require('./db')
 
 //import models
-const { Menu } = require('./Menu')
-const { Restaurant } = require('./Restaurant')
-const { MenuItem } = require('./MenuItem')
-const { Orders } = require('./Orders')
-const {Customer } = require('./Customer')
+const {Menu} = require('./models/Menu')
+const {Restaurant} = require('./models/Restaurant')
+const {Item} = require('./models/Item')
+const {Orders} = require('./models/Orders')
+const {Customer} = require('./models/Customer')
 
 Menu.belongsTo(Restaurant)
 Restaurant.hasMany(Menu)
 
-MenuItem.belongsTo(Menu)
-Menu.hasMany(MenuItem)
-
-MenuItem.belongsTo(Restaurant)
-Restaurant.hasMany(MenuItem)
+Item.belongsTo(Menu)
+Menu.hasMany(Item)
 
 Orders.belongsTo(Customer)
 Customer.hasMany(Orders)
@@ -22,4 +19,6 @@ Customer.hasMany(Orders)
 Customer.belongsTo(Restaurant)
 Restaurant.hasMany(Customer)
 
-module.exports = {Menu, Restaurant, MenuItem, Orders,Customer, sequelize}
+
+
+module.exports = {Menu, Restaurant, Item, Orders, Customer, sequelize}

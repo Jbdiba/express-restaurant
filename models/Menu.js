@@ -5,7 +5,7 @@ class Menu extends Model {}
 
 Menu.init({
     title: DataTypes.STRING,
- 
+    RestaurantId: DataTypes.INTEGER
 }, 
 {   sequelize, 
     timestamps: false

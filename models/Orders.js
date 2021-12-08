@@ -4,7 +4,6 @@ class Orders extends Model {
 }
 
 Orders.init({
-    customerId: DataTypes.INTEGER,
     ordersDate: DataTypes.DATE,
     price: DataTypes.FLOAT
 },
