@@ -3,6 +3,8 @@ const {sequelize} = require('./db')
 const {Restaurant} = require('./models/Restaurant')
 const { Menu } = require('./models/Menu')
 const { Item } = require('./models/Item')
+const { Orders } = require('./models/Orders')
+const { Customer } = require('./models/Customer')
 
 //Q: Why do you think each object inside of the arrays are structured the way that they are?
 //Q: What do you think will happen when we 'seed' this file?
@@ -73,6 +75,42 @@ const seedItem = [
   }
 ]
 
+const seedOrders = [
+  {
+    customerId: 1,
+    ordersDate: 12-01-2021,
+    price: 20.50   
+  },
+  {
+    customerId: 2,
+    ordersDate: 12-03-2021,
+    price: 15   
+  },
+  {
+    customerId: 3,
+    ordersDate: 12-05-2021,
+    price: 13.30 
+  }
+]
+
+const seedCustomer = [
+  {
+    customerName: 'John',
+    orderId: 1,
+    paymentType: 'debit-card'
+  },
+  {
+    customerName: 'Michael',
+    orderId: 2,
+    paymentType: 'debit-card'
+  },
+  {
+    customerName: 'John',
+    orderId: 3,
+    paymentType: 'cash'
+  }
+]
+
 //Q: Try to decifer the following function.
 //Q: Why are we using async and await?
 const seed = async () => {
@@ -81,6 +119,8 @@ const seed = async () => {
     await Restaurant.bulkCreate(seedRestaurant, {validate: true})
     await Menu.bulkCreate(seedMenu, {validate: true})
     await Item.bulkCreate(seedItem, {validate: true})
+    await Orders.bulkCreate(seedOrders, {validate: true})
+    await Customer.bulkCreate(seedCustomer, {validate: true})
     console.log('Seeding success!')
     sequelize.close()
   } catch (error) {
@@ -97,3 +137,6 @@ seed()
       console.error('Oh noes! Something went wrong!')
       console.error(err)
     })
+
+
+   
